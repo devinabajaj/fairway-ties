@@ -1,0 +1,8 @@
+community,archetype,n_players,avg_driveDist,avg_fairPct,avg_greenReg,avg_avePutts,avg_sandPct
+3,long_drives,22,268.4,65.9,66.5,29.97,43.7
+1,all_rounders,31,265.2,72.5,73.1,29.99,47.6
+4,genralists,10,260.1,68.8,68.6,30.48,43.7
+6,weak_short_game,30,256.3,74.7,69.3,30.75,37.2
+7,strong_short_game,10,255.7,75,69.4,29.06,54.1
+2,inconsistent_approach,22,248.7,74.5,63,29.95,43.1
+5,high_accuracy,33,248,79.6,70,29.92,50.9
