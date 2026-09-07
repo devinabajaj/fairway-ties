@@ -5,7 +5,7 @@ library(igraph)
 
 golf_graph <- readRDS("data/processed/golf_graph.rds")
 
-# Pull all player-level data (including community) into one clean table
+# Player-level data (including community) into one clean table
 player_data <- tibble(
   Golfer = V(golf_graph)$name,
   Nation = V(golf_graph)$Nation,
@@ -33,6 +33,36 @@ community_profiles <- player_data %>%
 
 print(community_profiles)
 
-# Save — blog-ready outputs
+# Naming the communities based on table analysis
+community_names <- tibble(
+  community = c(1,2,3,4,5,6,7),
+  archetype = c(
+    "all_rounders",
+    "inconsistent_approach",
+    "long_drives",
+    "generalists",
+    "high_accuracy",
+    "weak_short_game",
+    "strong_short_game"
+  )
+)
+
+# Attaching the names to both tables by matching on community number
+community_profiles <- community_profiles %>%
+  mutate(community = as.integer(community)) %>%
+  left_join(community_names, by = "community") %>%
+  relocate(archetype, .after = community)
+
+player_data <- player_data %>%
+  mutate(community = as.integer(community)) %>%
+  left_join(community_names, by = "community") %>%
+  relocate(archetype, .after = community)
+    
+
+print(community_profiles)
+
+# Re-save with the archetype names included
 write_csv(community_profiles, "output/community_profiles.csv")
 write_csv(player_data, "output/player_communities.csv")
+
+

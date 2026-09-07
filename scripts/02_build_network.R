@@ -29,8 +29,7 @@ edge_list <- map_dfr(1:nrow(sim_matrix), function(i) {
 })
 
 # Remove dupes so each pair only shows up once
-# (A->B and B->A can both show up since similarity is symmetric,
-# but a top-5 cutoff isn't guaranteed to be mutual)
+# (A->B and B->A can both show up since similarity is symmetric, but a top-5 cutoff isn't guaranteed to be mutual)
 edge_list <- edge_list %>%
   mutate(pair_id = map2_chr(from, to, ~paste(sort(c(.x, .y)), collapse = "_"))) %>%
   distinct(pair_id, .keep_all = TRUE) %>%

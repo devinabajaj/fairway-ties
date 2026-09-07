@@ -1,11 +1,11 @@
-## Centrality + community detection on the LPGA similarity network
+## Centrality and community detection on the LPGA similarity network
 
 library(tidyverse)
 library(igraph)
 
 golf_graph <- readRDS("data/processed/golf_graph.rds")
 
-# --- Centrality measures ---
+# Centrality
 # Degree: how many connections a player has
 # Weighted degree (strength): how strong those connections are
 V(golf_graph)$degree <- degree(golf_graph)
@@ -20,7 +20,7 @@ centrality_table <- tibble(
   arrange(desc(strength))
 print(head(centrality_table, 10))
 
-# --- Community detection using the Louvain method ---
+# Community Detection
 communities <- cluster_louvain(golf_graph, weights = E(golf_graph)$weight)
 communities
 membership(communities)
@@ -39,5 +39,5 @@ community_table <- tibble(
   arrange(community)
 print(community_table, n = 30)
 
-# Save once, now that degree, strength, AND community are all attached
+
 saveRDS(golf_graph, "data/processed/golf_graph.rds")
